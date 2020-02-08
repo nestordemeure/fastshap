@@ -7,3 +7,5 @@ This project brings support for `fastshap` into `fastai2`. Currently supports:
 * Summary plot
 * Dependance plot
 * Decision plot
+
+Install with `pip install fastshap`
