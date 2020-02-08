@@ -3,6 +3,9 @@
 __all__ = ['prepare_data', 'pred_data', 'BaseExplainer', 'KernelExplainer']
 
 # Cell
+from fastai2.tabular.all import *
+
+# Cell
 import shap
 
 # Cell
