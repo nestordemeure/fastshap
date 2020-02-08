@@ -13,7 +13,7 @@ def prepare_data(learn:Learner, test_dl:TabularDataLoaders=None):
   "Prepares train and test data for `SHAP`, pass in a learner with optional data"
   X_train_cat, X_train_cont, _ = learn.dls.one_batch()
   X_train = [X_train_cat, X_train_cont]
-  X_test_cat, X_test_cont = tensor(dl.cats).long(),tensor(dl.conts).float()
+  X_test_cat, X_test_cont = tensor(test_dl.cats).long(),tensor(test_dl.conts).float()
   X_test = [X_test_cat, X_test_cont]
   cols = learn.dls.cat_names + learn.dls.cont_names
   X_train = pd.DataFrame(np.concatenate([v.to('cpu').numpy() for v in X_train], axis=1), columns=cols)
