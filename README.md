@@ -19,10 +19,6 @@ path = untar_data(URLs.ADULT_SAMPLE)
 df = pd.read_csv(path/'adult.csv')
 ```
 
-
-
-
-
 ```
 dep_var = 'salary'
 cat_names = ['workclass', 'education', 'marital-status', 'occupation', 'relationship', 'race']
@@ -36,35 +32,10 @@ to = TabularPandas(df, procs, cat_names, cont_names, y_names="salary", splits=sp
 dls = to.dataloaders()
 ```
 
-Now let's train an initial model
-
 ```
 learn = tabular_learner(dls, layers=[200,100], metrics=accuracy)
 learn.fit(1, 1e-2)
 ```
-
-
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: left;">
-      <th>epoch</th>
-      <th>train_loss</th>
-      <th>valid_loss</th>
-      <th>accuracy</th>
-      <th>time</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>0</td>
-      <td>0.372223</td>
-      <td>0.377483</td>
-      <td>0.810000</td>
-      <td>00:07</td>
-    </tr>
-  </tbody>
-</table>
-
 
 And now for some example usage!
 
