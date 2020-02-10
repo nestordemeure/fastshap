@@ -6,7 +6,7 @@ __all__ = []
 from fastai2.tabular.all import *
 
 # Cell
-def _prepare_data(learn:Learner, test_data=None):
+def _prepare_data(learn:Learner, test_data=None, n_samples:int=128):
   "Prepares train and test data for `SHAP`, pass in a learner with optional data"
   if isinstance(test_data, pd.DataFrame):
     dl = learn.dls.test_dl(test_data)
@@ -21,7 +21,7 @@ def _prepare_data(learn:Learner, test_data=None):
     dl = learn.dls[1]
   else:
     raise ValueError('Input is not supported. Please use either a `DataFrame` or `TabularDataLoader`')
-  return dl.all_cols.sample(n=128) if len(dl.all_cols) > 128 else dl.all_cols
+  return dl.all_cols.sample(n=n_samples) if len(dl.all_cols) > 128 else dl.all_cols
 
 # Cell
 def _predict(learn:TabularLearner, data:np.array):
