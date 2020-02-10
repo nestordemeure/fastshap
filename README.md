@@ -76,12 +76,6 @@ from fastshap.interp import *
 exp = ShapInterpretation(learn, df.iloc[:100])
 ```
 
-    l1_reg="auto" is deprecated and in the next version (v0.29) the behavior will change from a conditional use of AIC to simply "num_features(10)"!
-
-
-    
-
-
 ```
 exp.dependence_plot('age')
 ```
