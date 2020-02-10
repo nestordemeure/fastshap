@@ -8,27 +8,16 @@ from fastai2.tabular.all import *
 # Cell
 def _prepare_data(learn:Learner, test_data=None):
   "Prepares train and test data for `SHAP`, pass in a learner with optional data"
-  dtype = ''
-  if isinstance(test_data, pd.DataFrame): dtype = 'pandas'
-  elif isinstance(test_data, TabDataLoader): dtype = 'dl'
-  elif test_data is None: dtype = 'train'
-  else: raise ValueError('Input is not supported. Please use either a `DataFrame` or `TabularDataLoader`')
-  cols = learn.dls.cat_names + learn.dls.cont_names
-  X_train_cat, X_train_cont, _ = learn.dls.one_batch()
-  X_train = [X_train_cat, X_train_cont]
-  X_train = pd.DataFrame(np.concatenate([v.to('cpu').numpy() for v in X_train], axis=1), columns=cols)
-  if dtype == 'pandas':
+  if isinstance(test_data, pd.DataFrame):
     dl = learn.dls.test_dl(test_data)
-  elif dtype=='dl':
+  elif isinstance(test_data, TabDataLoader):
     dl = test_data
-  else:
+  elif test_data is None:
+    # TODO this takes a batch ?
     dl = learn.dls[1]
-    if len(dl) * learn.dls.bs > 256:
-      test_data = dl.dataset.all_cols.sample(256, replace=False)
-      dl = learn.dls.test_dl(test_data)
-  X_test = tensor(dl.cats).long(),tensor(dl.conts).float()
-  X_test = pd.DataFrame(np.concatenate([v.to('cpu').numpy() for v in X_test], axis=1), columns=cols)
-  return X_train, X_test
+  else:
+    raise ValueError('Input is not supported. Please use either a `DataFrame` or `TabularDataLoader`')
+  return dl.all_cols
 
 # Cell
 def _predict(learn:TabularLearner, data:np.array):

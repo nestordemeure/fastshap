@@ -18,57 +18,46 @@ class ShapInterpretation():
     self.train_data, self.test_data = _prepare_data(learn, test_data)
     self.is_mat = matplotlib
     pred_func = partial(_predict, learn)
-    self.explainer = shap.KernelExplainer(pred_func, self.train_data, **kwargs)
+    self.explainer = shap.SamplingExplainer(pred_func, self.train_data, **kwargs)
     self.shap_vals = self.explainer.shap_values(self.test_data, l1_reg=l1_reg)
     self.is_multi_output = isinstance(self.shap_vals, list)
 
-  def decision_plot(self, class_id=0, **kwargs):
-    "Visualize model decision using cumulative `SHAP` values"
-    shap_vals, exp_val = self._get_values(class_id)
-    return shap.decision_plot(exp_val, shap_vals, self.test_data, **kwargs)
+  def decision_plot(self, class_id=0, idx=-1, **kwargs):
+    "Visualize model decision using cumulative `SHAP` values."
+    shap_vals, exp_val = _get_values(self, class_id)
+    if idx == -1:
+      return shap.decision_plot(exp_val, shap_vals[:10], self.test_data.iloc[:10], **kwargs)
+    return shap.decision_plot(exp_val, shap_vals[idx], self.test_data.iloc[idx], **kwargs)
 
   def dependence_plot(self, variable_name:str="", class_id=0, idx:int=0, **kwargs):
     "Plots value of variable on the x-axis and the SHAP value of the same variable on the y-axis"
     if variable_name is "":
       raise ValueError('No variable passed in for `variable_name`')
-    shap.initjs()
-    shap_vals, _ = self._get_values(class_id)
+    shap_vals, _ = _get_values(self, class_id)
     return shap.dependence_plot(variable_name, shap_vals, self.test_data, **kwargs)
 
   def force_plot(self, class_id=0, **kwargs):
     "Visualize the `SHAP` values with additive force layout"
-    shap_vals, exp_val = self._get_values(class_id)
+    shap_vals, exp_val = _get_values(self, class_id)
     if not self.is_mat: shap.initjs()
     return shap.force_plot(exp_val, shap_vals, self.test_data, matplotlib=self.is_mat, **kwargs)
 
   def summary_plot(self, **kwargs):
     "Displays `SHAP` values which can be interperated for feature importance"
-    shap.initjs()
     return shap.summary_plot(self.shap_vals, self.test_data, class_names=self.class_names, **kwargs)
 
   def waterfall_plot(self, row_idx=None, class_id=0, **kwargs):
     "Plots explaination of single prediction as waterfall plot"
-    shap_vals, exp_val = self._get_values(class_id)
+    shap_vals, exp_val = _get_values(self, class_id)
     n_rows = shap_vals.shape[0]
     row_idx = random.randint(0, n_rows-1) if row_idx is not None else row_idx
     print(f'Displaying row {row_idx} of {n_rows} (use `row_idx` to specify another row)')
     feat_names = self.test_data.columns
-    shap.initjs()
     return shap.waterfall_plot(exp_val, shap_vals[row_idx,:], feature_names=feat_names, **kwargs)
 
-  def _get_class_info(self, class_id):
-    "Returns class name associated with index, or vice-versa"
-    if isinstance(class_id, int): class_idx, class_name = class_id, self.class_names[class_id]
-    else: class_idx, class_name = self.class_names.o2i[class_id], class_id
-    return (class_name, class_idx)
-
-  def _get_values(self, class_id=0):
-    "Returns `shap_value` and `expected_value`"
-    shap_vals = self.shap_vals
-    exp_vals = self.explainer.expected_value
-    if self.is_multi_output:
-      (class_name, class_idx) = self._get_class_info(class_id)
-      print(f"Classification model detected, displaying score for the class {class_name}.")
-      print("(use `class_id` to specify another class)")
-      return (shap_vals[class_idx], exp_vals[class_idx])
-    return (shap_vals, exp_vals)
+# Cell
+def _get_class_info(interp:ShapInterpretation, class_id):
+  "Returns class name associated with index, or vice-versa"
+  if isinstance(class_id, int): class_idx, class_name = class_id, interp.class_names[class_id]
+  else: class_idx, class_name = interp.class_names.o2i[class_id], class_id
+  return (class_name, class_idx)
