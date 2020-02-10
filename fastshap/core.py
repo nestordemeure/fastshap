@@ -13,11 +13,15 @@ def _prepare_data(learn:Learner, test_data=None):
   elif isinstance(test_data, TabDataLoader):
     dl = test_data
   elif test_data is None:
-    # TODO this takes a batch ?
+    try:
+      dl = learn.dls[1]
+    except IndexError:
+      print('No validation dataloader, using `train`')
+  elif test_data is None:
     dl = learn.dls[1]
   else:
     raise ValueError('Input is not supported. Please use either a `DataFrame` or `TabularDataLoader`')
-  return dl.all_cols
+  return dl.all_cols.sample(n=128) if len(dl.all_cols) > 128 else dl.all_cols
 
 # Cell
 def _predict(learn:TabularLearner, data:np.array):

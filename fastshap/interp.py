@@ -15,7 +15,8 @@ class ShapInterpretation():
     self.model = learn.model
     self.dls = learn.dls
     self.class_names = learn.dl.vocab
-    self.train_data, self.test_data = _prepare_data(learn, test_data)
+    self.train_data = learn.dls.all_cols
+    self.test_data = _prepare_data(learn, test_data)
     self.is_mat = matplotlib
     pred_func = partial(_predict, learn)
     self.explainer = shap.SamplingExplainer(pred_func, self.train_data, **kwargs)
