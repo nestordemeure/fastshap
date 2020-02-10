@@ -25,8 +25,11 @@ class ShapInterpretation():
   def decision_plot(self, class_id=0, row_idx=-1, **kwargs):
     "Visualize model decision using cumulative `SHAP` values."
     shap_vals, exp_val = _get_values(self, class_id)
+    n_rows = shap_vals.shape[0]
     if row_idx == -1:
+      print(f'Displaying rows 0-9 of {n_rows} (use `row_idx` to specify another row)')
       return shap.decision_plot(exp_val, shap_vals[:10], self.test_data.iloc[:10], **kwargs)
+    print(f'Displaying row {row_idx} of {n_rows} (use `row_idx` to specify another row)')
     return shap.decision_plot(exp_val, shap_vals[row_idx], self.test_data.iloc[row_idx], **kwargs)
 
   def dependence_plot(self, variable_name:str="", class_id=0, **kwargs):
