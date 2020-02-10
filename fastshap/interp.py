@@ -10,14 +10,13 @@ from fastai2.tabular.all import *
 # Cell
 class ShapInterpretation():
   "Base interpereter to use the `SHAP` interpretation library"
-  def __init__(self, learn:TabularLearner, test_data=None, link='identity', l1_reg='auto', matplotlib=False, n_samples=128, **kwargs):
+  def __init__(self, learn:TabularLearner, test_data=None, link='identity', l1_reg='auto', n_samples=128, **kwargs):
     "Initialize `ShapInterpretation` with a Learner, test_data, link, `n_samples`, `l1_reg`, and optional **kwargs"
     self.model = learn.model
     self.dls = learn.dls
     self.class_names = learn.dl.vocab
     self.train_data = pd.merge(learn.dls.cats, learn.dls.conts, left_index=True, right_index=True)
     self.test_data = _prepare_data(learn, test_data, n_samples)
-    self.is_mat = matplotlib
     pred_func = partial(_predict, learn)
     self.explainer = shap.SamplingExplainer(pred_func, self.train_data, **kwargs)
     self.shap_vals = self.explainer.shap_values(self.test_data, l1_reg=l1_reg)
@@ -37,11 +36,11 @@ class ShapInterpretation():
     shap_vals, _ = _get_values(self, class_id)
     return shap.dependence_plot(variable_name, shap_vals, self.test_data, **kwargs)
 
-  def force_plot(self, class_id=0, **kwargs):
+  def force_plot(self, class_id=0, matplotlib=False, **kwargs):
     "Visualize the `SHAP` values with additive force layout"
     shap_vals, exp_val = _get_values(self, class_id)
-    if not self.is_mat: shap.initjs()
-    return shap.force_plot(exp_val, shap_vals, self.test_data, matplotlib=self.is_mat, **kwargs)
+    if not matplotlib: shap.initjs()
+    return shap.force_plot(exp_val, shap_vals, self.test_data, matplotlib=matplotlib, **kwargs)
 
   def summary_plot(self, **kwargs):
     "Displays `SHAP` values which can be interperated for feature importance"
