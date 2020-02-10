@@ -21,7 +21,8 @@ def _prepare_data(learn:Learner, test_data=None, n_samples:int=128):
     dl = learn.dls[1]
   else:
     raise ValueError('Input is not supported. Please use either a `DataFrame` or `TabularDataLoader`')
-  return dl.all_cols.sample(n=n_samples) if len(dl.all_cols) > 128 else dl.all_cols
+  test_data = pd.merge(dl.cats, dl.conts, left_index=True, right_index=True)
+  return test_data.sample(n=n_samples) if len(test_data) > 128 else test_data
 
 # Cell
 def _predict(learn:TabularLearner, data:np.array):
