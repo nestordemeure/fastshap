@@ -25,6 +25,13 @@ summary: "This module contains helper functions for preparing the data"
 <div class="cell border-box-sizing code_cell rendered">
 
 </div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>We'll use the <code>ADULT_SAMPLE</code> dataset for all of our examples. This dataset's aim is to identify if an individual makes above or below $50,000</p>
+
+</div>
+</div>
+</div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 
@@ -38,6 +45,28 @@ summary: "This module contains helper functions for preparing the data"
 </div>
 </div>
 
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Next let's name our variables</p>
+
+</div>
+</div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
@@ -54,6 +83,13 @@ summary: "This module contains helper functions for preparing the data"
 </div>
 </div>
 
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>And decide how we want to split and generate our <code>DataLoader</code>!</p>
+
+</div>
+</div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
@@ -72,7 +108,7 @@ summary: "This module contains helper functions for preparing the data"
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>First we train our initial model</p>
+<p>Now let's train an initial model to use</p>
 
 </div>
 </div>
@@ -110,9 +146,9 @@ summary: "This module contains helper functions for preparing the data"
   <tbody>
     <tr>
       <td>0</td>
-      <td>0.374005</td>
-      <td>0.399195</td>
-      <td>0.825000</td>
+      <td>0.375059</td>
+      <td>0.408420</td>
+      <td>0.785000</td>
       <td>00:08</td>
     </tr>
   </tbody>
@@ -127,7 +163,15 @@ summary: "This module contains helper functions for preparing the data"
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Now we begin using shap</p>
+<p>We want to get our predictions in check for our model. We do this by passing in <code>SHAP</code> data. This has an option to pass in a test <code>DataFrame</code> or <code>DataLoader</code>. If none passed in, it will assume the validation dataset</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="_prepare_data">_prepare_data<a class="anchor-link" href="#_prepare_data">&#182;</a></h1><blockquote><p>This function prepares some test data for how <code>SHAP</code> expects their input. You can pass in a <code>DataFrame</code> or <code>TabDataLoader</code>. If nothing is passed in, it will default to your validation data</p>
+</blockquote>
 
 </div>
 </div>
@@ -137,29 +181,10 @@ summary: "This module contains helper functions for preparing the data"
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>We want to get our predictions in check for our model. We do this by passing in <code>SHAP</code> data. This has an option to pass in a test <code>DataFrame</code> or <code>DataLoader</code>. If none passed in, it will assume the validation dataset</p>
+<p>First, an example with a <code>DataFrame</code></p>
 
 </div>
 </div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">dl</span> <span class="o">=</span> <span class="n">learn</span><span class="o">.</span><span class="n">dls</span><span class="o">.</span><span class="n">test_dl</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:</span><span class="mi">100</span><span class="p">])</span>
-<span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span> <span class="o">=</span> <span class="n">_prepare_data</span><span class="p">(</span><span class="n">learn</span><span class="p">,</span> <span class="n">dl</span><span class="p">)</span>
-<span class="n">test_eq</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">X_train</span><span class="p">),</span> <span class="mi">64</span><span class="p">)</span>
-<span class="n">test_eq</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">X_test</span><span class="p">),</span> <span class="mi">100</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
@@ -167,8 +192,6 @@ summary: "This module contains helper functions for preparing the data"
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span> <span class="o">=</span> <span class="n">_prepare_data</span><span class="p">(</span><span class="n">learn</span><span class="p">,</span> <span class="n">df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:</span><span class="mi">100</span><span class="p">])</span>
-<span class="n">test_eq</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">X_train</span><span class="p">),</span> <span class="mi">64</span><span class="p">)</span>
-<span class="n">test_eq</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">X_test</span><span class="p">),</span> <span class="mi">100</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -181,22 +204,7 @@ summary: "This module contains helper functions for preparing the data"
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span> <span class="o">=</span> <span class="n">_prepare_data</span><span class="p">(</span><span class="n">learn</span><span class="p">)</span>
-<span class="n">test_eq</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">X_train</span><span class="p">),</span> <span class="mi">64</span><span class="p">)</span>
-<span class="n">test_eq</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">X_test</span><span class="p">),</span> <span class="mi">200</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span> <span class="o">=</span> <span class="n">_prepare_data</span><span class="p">(</span><span class="n">learn</span><span class="p">,</span> <span class="s1">&#39;test&#39;</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">X_test</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 
     </div>
@@ -208,27 +216,449 @@ summary: "This module contains helper functions for preparing the data"
 
 <div class="output_area">
 
-<div class="output_subarea output_text output_error">
-<pre>
-<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
-<span class="ansi-red-fg">ValueError</span>                                Traceback (most recent call last)
-<span class="ansi-green-fg">&lt;ipython-input-132-748715efad6d&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span><span class="ansi-blue-fg">()</span>
-<span class="ansi-green-fg">----&gt; 1</span><span class="ansi-red-fg"> </span>X_train<span class="ansi-blue-fg">,</span> X_test <span class="ansi-blue-fg">=</span> _prepare_data<span class="ansi-blue-fg">(</span>learn<span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">&#39;test&#39;</span><span class="ansi-blue-fg">)</span>
 
-<span class="ansi-green-fg">&lt;ipython-input-127-d6483a9be556&gt;</span> in <span class="ansi-cyan-fg">_prepare_data</span><span class="ansi-blue-fg">(learn, test_data)</span>
-<span class="ansi-green-intense-fg ansi-bold">      5</span>   <span class="ansi-green-fg">elif</span> isinstance<span class="ansi-blue-fg">(</span>test_data<span class="ansi-blue-fg">,</span> TabDataLoader<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span> dtype <span class="ansi-blue-fg">=</span> <span class="ansi-blue-fg">&#39;dl&#39;</span>
-<span class="ansi-green-intense-fg ansi-bold">      6</span>   <span class="ansi-green-fg">elif</span> test_data <span class="ansi-green-fg">is</span> <span class="ansi-green-fg">None</span><span class="ansi-blue-fg">:</span> dtype <span class="ansi-blue-fg">=</span> <span class="ansi-blue-fg">&#39;train&#39;</span>
-<span class="ansi-green-fg">----&gt; 7</span><span class="ansi-red-fg">   </span><span class="ansi-green-fg">else</span><span class="ansi-blue-fg">:</span> <span class="ansi-green-fg">raise</span> ValueError<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">&#39;Input is not supported. Please use either a `DataFrame` or `TabularDataLoader`&#39;</span><span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">      8</span>   cols <span class="ansi-blue-fg">=</span> learn<span class="ansi-blue-fg">.</span>dls<span class="ansi-blue-fg">.</span>cat_names <span class="ansi-blue-fg">+</span> learn<span class="ansi-blue-fg">.</span>dls<span class="ansi-blue-fg">.</span>cont_names
-<span class="ansi-green-intense-fg ansi-bold">      9</span>   X_train_cat<span class="ansi-blue-fg">,</span> X_train_cont<span class="ansi-blue-fg">,</span> _ <span class="ansi-blue-fg">=</span> learn<span class="ansi-blue-fg">.</span>dls<span class="ansi-blue-fg">.</span>one_batch<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span>
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
 
-<span class="ansi-red-fg">ValueError</span>: Input is not supported. Please use either a `DataFrame` or `TabularDataLoader`</pre>
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>workclass</th>
+      <th>education</th>
+      <th>marital-status</th>
+      <th>occupation</th>
+      <th>relationship</th>
+      <th>race</th>
+      <th>age_na</th>
+      <th>fnlwgt_na</th>
+      <th>education-num_na</th>
+      <th>age</th>
+      <th>fnlwgt</th>
+      <th>education-num</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>5.0</td>
+      <td>16.0</td>
+      <td>1.0</td>
+      <td>7.0</td>
+      <td>5.0</td>
+      <td>5.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>2.0</td>
+      <td>0.470058</td>
+      <td>-0.879315</td>
+      <td>-0.031209</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>6.0</td>
+      <td>15.0</td>
+      <td>3.0</td>
+      <td>11.0</td>
+      <td>1.0</td>
+      <td>5.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>2.0</td>
+      <td>0.543359</td>
+      <td>0.029004</td>
+      <td>-0.031209</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>5.0</td>
+      <td>9.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>2.0</td>
+      <td>5.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>2.0</td>
+      <td>-0.189644</td>
+      <td>1.770439</td>
+      <td>-0.031209</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>2.0</td>
+      <td>10.0</td>
+      <td>5.0</td>
+      <td>14.0</td>
+      <td>2.0</td>
+      <td>5.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>2.0</td>
+      <td>-0.995946</td>
+      <td>-1.324184</td>
+      <td>-0.031209</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>5.0</td>
+      <td>10.0</td>
+      <td>3.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>5.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>2.0</td>
+      <td>-0.116344</td>
+      <td>-0.238863</td>
+      <td>-0.031209</td>
+    </tr>
+  </tbody>
+</table>
 </div>
 </div>
 
 </div>
+
+</div>
 </div>
 
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>We can see that we now are working with the transformed data! Now let's do the same with a <code>DataLoader</code></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">dl</span> <span class="o">=</span> <span class="n">learn</span><span class="o">.</span><span class="n">dls</span><span class="o">.</span><span class="n">test_dl</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:</span><span class="mi">100</span><span class="p">])</span>
+<span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span> <span class="o">=</span> <span class="n">_prepare_data</span><span class="p">(</span><span class="n">learn</span><span class="p">,</span> <span class="n">dl</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">X_test</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>workclass</th>
+      <th>education</th>
+      <th>marital-status</th>
+      <th>occupation</th>
+      <th>relationship</th>
+      <th>race</th>
+      <th>age_na</th>
+      <th>fnlwgt_na</th>
+      <th>education-num_na</th>
+      <th>age</th>
+      <th>fnlwgt</th>
+      <th>education-num</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>5.0</td>
+      <td>16.0</td>
+      <td>1.0</td>
+      <td>7.0</td>
+      <td>5.0</td>
+      <td>5.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>2.0</td>
+      <td>0.470058</td>
+      <td>-0.879315</td>
+      <td>-0.031209</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>6.0</td>
+      <td>15.0</td>
+      <td>3.0</td>
+      <td>11.0</td>
+      <td>1.0</td>
+      <td>5.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>2.0</td>
+      <td>0.543359</td>
+      <td>0.029004</td>
+      <td>-0.031209</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>5.0</td>
+      <td>9.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>2.0</td>
+      <td>5.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>2.0</td>
+      <td>-0.189644</td>
+      <td>1.770439</td>
+      <td>-0.031209</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>2.0</td>
+      <td>10.0</td>
+      <td>5.0</td>
+      <td>14.0</td>
+      <td>2.0</td>
+      <td>5.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>2.0</td>
+      <td>-0.995946</td>
+      <td>-1.324184</td>
+      <td>-0.031209</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>5.0</td>
+      <td>10.0</td>
+      <td>3.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>5.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>2.0</td>
+      <td>-0.116344</td>
+      <td>-0.238863</td>
+      <td>-0.031209</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>And now finally for absolutely nothing</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span> <span class="o">=</span> <span class="n">_prepare_data</span><span class="p">(</span><span class="n">learn</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">X_test</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>workclass</th>
+      <th>education</th>
+      <th>marital-status</th>
+      <th>occupation</th>
+      <th>relationship</th>
+      <th>race</th>
+      <th>age_na</th>
+      <th>fnlwgt_na</th>
+      <th>education-num_na</th>
+      <th>age</th>
+      <th>fnlwgt</th>
+      <th>education-num</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>5.0</td>
+      <td>16.0</td>
+      <td>1.0</td>
+      <td>7.0</td>
+      <td>5.0</td>
+      <td>5.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>2.0</td>
+      <td>0.470058</td>
+      <td>-0.879315</td>
+      <td>-0.031209</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>6.0</td>
+      <td>15.0</td>
+      <td>3.0</td>
+      <td>11.0</td>
+      <td>1.0</td>
+      <td>5.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>2.0</td>
+      <td>0.543359</td>
+      <td>0.029004</td>
+      <td>-0.031209</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>5.0</td>
+      <td>9.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>2.0</td>
+      <td>5.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>2.0</td>
+      <td>-0.189644</td>
+      <td>1.770439</td>
+      <td>-0.031209</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>2.0</td>
+      <td>10.0</td>
+      <td>5.0</td>
+      <td>14.0</td>
+      <td>2.0</td>
+      <td>5.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>2.0</td>
+      <td>-0.995946</td>
+      <td>-1.324184</td>
+      <td>-0.031209</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>5.0</td>
+      <td>10.0</td>
+      <td>3.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>5.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>2.0</td>
+      <td>-0.116344</td>
+      <td>-0.238863</td>
+      <td>-0.031209</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="_predict">_predict<a class="anchor-link" href="#_predict">&#182;</a></h1>
+</div>
+</div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -240,6 +670,13 @@ summary: "This module contains helper functions for preparing the data"
 <div class="cell border-box-sizing code_cell rendered">
 
 </div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><code>SHAP</code> will expect a numpy array for our data, so let's work with that and get some predictions!</p>
+
+</div>
+</div>
+</div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 
@@ -247,7 +684,6 @@ summary: "This module contains helper functions for preparing the data"
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">X_train</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:</span><span class="mi">5</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
 <span class="n">pred_probs</span> <span class="o">=</span> <span class="n">_predict</span><span class="p">(</span><span class="n">learn</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
-<span class="n">test_eq</span><span class="p">(</span><span class="n">pred_probs</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">2</span><span class="p">))</span>
 </pre></div>
 
     </div>
@@ -257,7 +693,76 @@ summary: "This module contains helper functions for preparing the data"
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>And now we can do whatever we need to.</p>
+<p>Let's take a look at those predictions</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">pred_probs</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>(5, 2)</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">pred_probs</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>array([[-0.36363047,  0.4599159 ],
+       [ 0.6334366 , -0.61967963],
+       [ 3.846245  , -4.456911  ],
+       [ 0.49836415, -0.6335752 ],
+       [-0.27864254,  0.34394863]], dtype=float32)</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>And now we can do whatever we need to!</p>
 
 </div>
 </div>

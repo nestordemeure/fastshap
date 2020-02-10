@@ -146,47 +146,6 @@ summary: "This module contains the base for `SHAP` interpretation."
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="decision_plot"><code>decision_plot</code><a class="anchor-link" href="#decision_plot">&#182;</a></h3><blockquote><p>Visualizes a model's decisions using cumulative <code>SHAP</code> values. Accepts a <code>class_id</code> which is used to indicate the class of interest for a classification model. It can either be an <code>int</code> or <code>str</code> representation for a class of choice. Each colored line in the plot represents the model's prediction for a single observation. <strong>Note: plotting too many samples at once can make the plot illegible.</strong> For an up-to-date list of parameters, see <a href="https://github.com/slundberg/shap/blob/master/shap/plots/decision.py">here</a> and for more information see <a href="https://github.com/slundberg/shap/blob/master/notebooks/plots/decision_plot.ipynb">here</a></p>
-</blockquote>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="dependence_plot"><code>dependence_plot</code><a class="anchor-link" href="#dependence_plot">&#182;</a></h3><blockquote><p>Plots the value of a variable on the x-axis and the <code>SHAP</code> value of the same variable on the y-axis. Accepts a <code>class_id</code> and <code>variable_name</code>. <code>class_id</code>  is used to indicate the class of interest for a classification model. It can either be an <code>int</code> or <code>str</code> representation for a class of choice. This plot shows how the model depends on the given variable. Vertical dispersion of the datapoints represent interaction effects. Gray ticks along the y-axis are datapoints where the variable's values were <code>NaN</code>. For an up-to-date list of parameters, see <a href="https: //github.com/slundberg/shap/blob/master/shap/plots/dependence.py">here</a> and for more information see <a href="https://github.com/slundberg/shap/blob/master/notebooks/plots/dependence_plot.ipynb">here</a></p>
-</blockquote>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="force_plot"><code>force_plot</code><a class="anchor-link" href="#force_plot">&#182;</a></h3><blockquote><p>Visualizes the <code>SHAP</code> values with an added force layout. Accepts a <code>class_id</code> which is used to indicate the class of interest for a classification model. It can either be an <code>int</code> or <code>str</code> representation for a class of choice. <code>matplotlib</code> determines if it should be shown using matplotlib or in JavaScript. For an up-to-date list of parameters, see <a href="https: //github.com/slundberg/shap/blob/master/shap/plots/force.py">here</a></p>
-</blockquote>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="summary_plot"><code>summary_plot</code><a class="anchor-link" href="#summary_plot">&#182;</a></h3><blockquote><p>Displays the SHAP values (which can be interpreted for feature importance)
-For an up-to-date list of parameters, see <a href="https: //github.com/slundberg/shap/blob/master/shap/plots/summary.py">here</a></p>
-</blockquote>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="waterfall_plot"><code>waterfall_plot</code><a class="anchor-link" href="#waterfall_plot">&#182;</a></h3><blockquote><p>Plots an explanation of a single prediction as a waterfall plot. Accepts a <code>row_index</code> and <code>class_id</code>. <code>row_index</code> is the index of the row chosen in <code>test_data</code> to be analyzed, which defaults to zero. Accepts a <code>class_id</code> which is used to indicate the class of interest for a classification model. It can either be an <code>int</code> or <code>str</code> representation for a class of choice. For an up-to-date list of parameters, see <a href="https: //github.com/slundberg/shap/blob/master/shap/plots/waterfall.py">here</a></p>
-</blockquote>
-
-</div>
-</div>
-</div>
 <div class="cell border-box-sizing code_cell rendered">
 
 </div>
@@ -210,13 +169,6 @@ For an up-to-date list of parameters, see <a href="https: //github.com/slundberg
 </div>
 </div>
 
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Let's look at some examples!</p>
-
-</div>
-</div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
@@ -252,6 +204,14 @@ For an up-to-date list of parameters, see <a href="https: //github.com/slundberg
 </div>
 </div>
 
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="decision_plot"><code>decision_plot</code><a class="anchor-link" href="#decision_plot">&#182;</a></h3><blockquote><p>Visualizes a model's decisions using cumulative <code>SHAP</code> values. Accepts a <code>class_id</code> which is used to indicate the class of interest for a classification model. It can either be an <code>int</code> or <code>str</code> representation for a class of choice. Each colored line in the plot represents the model's prediction for a single observation. <strong>Note: plotting too many samples at once can make the plot illegible.</strong> For an up-to-date list of parameters, see <a href="https://github.com/slundberg/shap/blob/master/shap/plots/decision.py">here</a> and for more information see <a href="https://github.com/slundberg/shap/blob/master/notebooks/plots/decision_plot.ipynb">here</a></p>
+</blockquote>
+
+</div>
+</div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
@@ -1563,6 +1523,14 @@ JCIiIlKD/x9QS+lCXyNkbQAAAABJRU5ErkJggg==
 </div>
 
 </div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="dependence_plot"><code>dependence_plot</code><a class="anchor-link" href="#dependence_plot">&#182;</a></h3><blockquote><p>Plots the value of a variable on the x-axis and the <code>SHAP</code> value of the same variable on the y-axis. Accepts a <code>class_id</code> and <code>variable_name</code>. <code>class_id</code>  is used to indicate the class of interest for a classification model. It can either be an <code>int</code> or <code>str</code> representation for a class of choice. This plot shows how the model depends on the given variable. Vertical dispersion of the datapoints represent interaction effects. Gray ticks along the y-axis are datapoints where the variable's values were <code>NaN</code>. For an up-to-date list of parameters, see <a href="https: //github.com/slundberg/shap/blob/master/shap/plots/dependence.py">here</a> and for more information see <a href="https://github.com/slundberg/shap/blob/master/notebooks/plots/dependence_plot.ipynb">here</a></p>
+</blockquote>
+
+</div>
+</div>
+</div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 
@@ -1947,6 +1915,14 @@ MjggAAAAAElFTkSuQmCC
 </div>
 
 </div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="force_plot"><code>force_plot</code><a class="anchor-link" href="#force_plot">&#182;</a></h3><blockquote><p>Visualizes the <code>SHAP</code> values with an added force layout. Accepts a <code>class_id</code> which is used to indicate the class of interest for a classification model. It can either be an <code>int</code> or <code>str</code> representation for a class of choice. <code>matplotlib</code> determines if it should be shown using matplotlib or in JavaScript. For an up-to-date list of parameters, see <a href="https: //github.com/slundberg/shap/blob/master/shap/plots/force.py">here</a></p>
+</blockquote>
+
+</div>
+</div>
+</div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 
@@ -2025,6 +2001,15 @@ function r(t,e){if(!o.canUseDOM||e&&!("addEventListener"in document))return!1;va
 </div>
 </div>
 
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="summary_plot"><code>summary_plot</code><a class="anchor-link" href="#summary_plot">&#182;</a></h3><blockquote><p>Displays the SHAP values (which can be interpreted for feature importance)
+For an up-to-date list of parameters, see <a href="https: //github.com/slundberg/shap/blob/master/shap/plots/summary.py">here</a></p>
+</blockquote>
+
+</div>
+</div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
@@ -2389,6 +2374,14 @@ QmCC
 </div>
 </div>
 
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="waterfall_plot"><code>waterfall_plot</code><a class="anchor-link" href="#waterfall_plot">&#182;</a></h3><blockquote><p>Plots an explanation of a single prediction as a waterfall plot. Accepts a <code>row_index</code> and <code>class_id</code>. <code>row_index</code> is the index of the row chosen in <code>test_data</code> to be analyzed, which defaults to zero. Accepts a <code>class_id</code> which is used to indicate the class of interest for a classification model. It can either be an <code>int</code> or <code>str</code> representation for a class of choice. For an up-to-date list of parameters, see <a href="https: //github.com/slundberg/shap/blob/master/shap/plots/waterfall.py">here</a></p>
+</blockquote>
+
+</div>
+</div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">

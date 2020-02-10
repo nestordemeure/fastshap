@@ -6,9 +6,6 @@ __all__ = []
 from fastai2.tabular.all import *
 
 # Cell
-import shap
-
-# Cell
 def _prepare_data(learn:Learner, test_data=None):
   "Prepares train and test data for `SHAP`, pass in a learner with optional data"
   dtype = ''
