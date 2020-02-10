@@ -1,11 +1,21 @@
-# fastshap
+# FastSHAP
+> This project brings in part of the `SHAP` library into `fastai2` and make it compatable. Currently just supports the `tabular` module for the following plots:
 
-This project brings support for `fastshap` into `fastai2`. Currently supports:
 
+## Install
 
-* Force plot
-* Summary plot
-* Dependance plot
-* Decision plot
+`pip install fastshap`
 
-Install with `pip install fastshap`
+## How to use
+
+```
+exp = KernelExplainer(learn, df.iloc[:100])
+```
+
+```
+exp.dependance_plot('age')
+```
+
+```
+exp.decision_plot()
+```

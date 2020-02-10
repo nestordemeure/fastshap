@@ -2,9 +2,10 @@
 
 __all__ = ["index", "modules", "custom_doc_links", "git_url"]
 
-index = {}
+index = {"ShapInterpretation": "01_interpret.ipynb"}
 
-modules = ["core.py"]
+modules = ["core.py",
+           "interp.py"]
 
 doc_url = "https://muellerzr.github.io/fastshap/"
 
