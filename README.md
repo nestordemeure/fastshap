@@ -1,5 +1,5 @@
 # FastSHAP
-> This project brings in part of the `SHAP` library into `fastai2` and make it compatable. Thank you to Nestor Demeure for his assistance with the project!
+> This project brings in part of the `SHAP` library into `fastai2` tabular and make it compatable. Thank you to Nestor Demeure for his assistance with the project!
 
 
 ## Install
