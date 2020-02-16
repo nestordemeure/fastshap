@@ -8,6 +8,7 @@ from fastai2.tabular.all import *
 # Cell
 def _prepare_data(learn:Learner, test_data=None, n_samples:int=128):
   "Prepares train and test data for `SHAP`, pass in a learner with optional data"
+  no_user_provided_test_data = test_data is None
   if isinstance(test_data, pd.DataFrame):
     dl = learn.dls.test_dl(test_data)
   elif isinstance(test_data, TabDataLoader):
@@ -17,12 +18,11 @@ def _prepare_data(learn:Learner, test_data=None, n_samples:int=128):
       dl = learn.dls[1]
     except IndexError:
       print('No validation dataloader, using `train`')
-  elif test_data is None:
-    dl = learn.dls[1]
+      dl = learn.dls[0]
   else:
     raise ValueError('Input is not supported. Please use either a `DataFrame` or `TabularDataLoader`')
   test_data = pd.merge(dl.cats, dl.conts, left_index=True, right_index=True)
-  return test_data.sample(n=n_samples) if len(test_data) > 128 else test_data
+  return test_data.sample(n=n_samples) if ((len(test_data) > n_samples) and no_user_provided_test_data) else test_data
 
 # Cell
 def _predict(learn:TabularLearner, data:np.array):
