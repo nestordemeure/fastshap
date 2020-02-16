@@ -61,3 +61,6 @@ exp.dependence_plot('age')
 
 
 For more examples see [01_Interpret](https://muellerzr.github.io/fastshap//interpret)
+
+
+*For more unofficial fastai extensions, see the [Fastai Extensions Repository](https://github.com/nestordemeure/fastai-extensions-repository).*
