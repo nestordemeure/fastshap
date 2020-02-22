@@ -1,6 +1,5 @@
-# FastSHAP
-> This project brings in part of the `SHAP` library into `fastai2` and make it compatable. Thank you to Nestor Demeure for his assistance with the project!
-
+# FastSHAP (V1)
+> This project brings in part of the `SHAP` library into `fastai` (V1) and make it compatible. Thank you to Nestor Demeure for his assistance with the project!
 
 ## Install
 
