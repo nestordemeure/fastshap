@@ -3,7 +3,7 @@
 __all__ = ['ShapInterpretation']
 
 # Cell
-#from fastshap.core import _prepare_data, _predict
+from .core import _prepare_data, _predict
 import shap
 from fastai.tabular import *
 
