@@ -43,9 +43,10 @@ class ShapInterpretation():
     if not matplotlib: shap.initjs()
     return shap.force_plot(exp_val, shap_vals, self.test_data, matplotlib=matplotlib, **kwargs)
 
-  def summary_plot(self, **kwargs):
-    "Displays `SHAP` values which can be interperated for feature importance"
-    return shap.summary_plot(self.shap_vals, self.test_data, class_names=self.class_names, **kwargs)
+  def summary_plot(self, plot_type="bar", max_display=None, **kwargs):
+    "Displays `SHAP` values which can be interperated as feature importance"
+    max_display = len(self.test_data.columns) if max_display is None else max_display # displays all features by default
+    return shap.summary_plot(self.shap_vals, self.test_data, class_names=self.class_names, plot_type=plot_type, **kwargs)
 
   def waterfall_plot(self, row_idx=None, class_id=0, **kwargs):
     "Plots explaination of single prediction as waterfall plot"
