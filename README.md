@@ -3,14 +3,14 @@
 
 ## Install
 
-`pip install fastshap`
+`pip install fastshapv1`
 
 ## How to use
 
 First we'll quickly train a `ADULTS` tabular model
 
 ```
-from fastai2.tabular.all import *
+from fastai.tabular import *
 ```
 
 ```
@@ -22,13 +22,14 @@ df = pd.read_csv(path/'adult.csv')
 dep_var = 'salary'
 cat_names = ['workclass', 'education', 'marital-status', 'occupation', 'relationship', 'race']
 cont_names = ['age', 'fnlwgt', 'education-num']
-procs = [Categorify, FillMissing, Normalize]
+procs = [FillMissing, Normalize, Categorify]
 ```
 
 ```
-splits = IndexSplitter(list(range(800,1000)))(range_of(df))
-to = TabularPandas(df, procs, cat_names, cont_names, y_names="salary", splits=splits)
-dls = to.dataloaders()
+dls = (TabularList.from_df(df, path=path, cat_names=cat_names, cont_names=cont_names, procs=procs)
+                           .split_by_idx(list(range(800,1000)))
+                           .label_from_df(cols=dep_var)
+                           .databunch())
 ```
 
 ```
@@ -59,7 +60,7 @@ exp.dependence_plot('age')
 ![png](docs/images/output_13_2.png)
 
 
-For more examples see [01_Interpret](https://muellerzr.github.io/fastshap//interpret)
+For more examples see [01_Interpret](https://github.com/muellerzr/fastshap/blob/fastaiv1/nbs/01_interpret.ipynb)
 
 
 *For more unofficial fastai extensions, see the [Fastai Extensions Repository](https://github.com/nestordemeure/fastai-extensions-repository).*
